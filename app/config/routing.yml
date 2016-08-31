@@ -1,0 +1,3 @@
+chatter_app:
+    resource: "@ChatterAppBundle/Resources/config/routing.yml"
+    prefix:   /

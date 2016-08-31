@@ -1,0 +1,4 @@
+services:
+#    mbp_app.example:
+#        class: MBP\AppBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        } </script>
+    <meta charset utf="8">
+    <!--font-awsome-css-->
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
+    <!--bootstrap-->
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+
+    <link href="{{ asset('assets/css/jquery.modal.min.css') }}" rel="stylesheet" type="text/css">
+    <!--custom css-->
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css"/>
+    <link href='//fonts.googleapis.com/css?family=Josefin+Sans:400,700italic,700,600italic,400italic,600,300italic,300,100italic,100'
+          rel='stylesheet' type='text/css'>
+</head>
+<body>
+{% block body %}
+
+{% endblock %}
+</body>
+<script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.modal.min.js') }}"></script>
+<!--script-->
+<script src="{{ asset('assets/js/bigSlide.js') }}"></script>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+    Stripe.setPublishableKey('pk_test_1YyumQ3ZE0inp64PlqHuSyWl');
+</script>
+<script>
+    $(document).ready(function () {
+        $('.menu-link').bigSlide();
+    });
+</script>
+<!--script-->
+<script src="{{ asset('assets/js/responsiveslides.min.js') }}"></script>
+<script>
+    $(function () {
+        $("#slider").responsiveSlides({
+            auto: true,
+            nav: true,
+            speed: 500,
+            namespace: "callbacks",
+            pager: true,
+        });
+    });
+</script>
+<!--script-->
+<script type="text/javascript">
+
+    function stripeResponseHandler(status, response) {
+        console.log(response);
+        // Grab the form:
+        var $form = $('#payment-form');
+        var $result = $('#payment-result');
+
+        if (response.error) {
+            $form.find('.errors').text(response.error.message);
+            $form.find('.submit').prop('disabled', false);
+        } else {
+            $result.html('Your Stripe token is: <strong>' + response.id + '</strong><br>This would then automatically be submitted to your server.');
+        }
+    };
+
+    $(document).ready(function () {
+
+        var $form = $('#payment-form');
+        $(document).on('submit', '#payment-form', function (event) {
+            $form.find('.payment-errors').text('');
+            $form.find('.submit').prop('disabled', true);
+            if (Stripe.card.validateCardNumber($('#number').val())
+                    && Stripe.card.validateCVC($('#cvc').val())) {
+
+                Stripe.card.createToken($form, stripeResponseHandler);
+            } else {
+                $form.find('.errors').text('Please enter valid test credit card information.');
+                $form.find('.submit').prop('disabled', false);
+            }
+            return false;
+        });
+
+        $(document).on('click', 'a[href="#confirm-payment-modal"]', function (e) {
+            e.preventDefault();
+            $(this).modal({
+                escapeClose: false,
+                clickClose: false,
+                showClose: false
+            });
+        });
+
+        $(document).on('click', '#buy-tickets', function (e) {
+            e.preventDefault();
+            $.modal.close();
+            $('#thankyou-modal').modal({
+                showClose: false
+            });
+        });
+
+        $(document).on('click', '#add-card', function (e) {
+            e.preventDefault();
+            $.modal.close();
+            $('#credit-card-modal').modal({
+                showClose: false
+            });
+        });
+
+    });
+
+</script>
+</html>

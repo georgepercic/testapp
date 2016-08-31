@@ -1,0 +1,11 @@
+chatter_app_homepage:
+    path:     /
+    defaults: { _controller: ChatterAppBundle:Default:index }
+
+chatter_app_capture:
+    path:     /{eventId}
+    defaults: { _controller: ChatterAppBundle:Capture:index }
+
+chatter_app_add_cc:
+    path:     /cc/add/{userId}
+    defaults: { _controller: ChatterAppBundle:Capture:addCreditCard }

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">a
+</head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+    <script type="text/javascript" src="{{ asset('assets/vendor/bootstrap/dist/js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    {% javascripts '@MBP/AppBundle/Resources/public/js/*' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+</html>

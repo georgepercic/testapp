@@ -1,0 +1,4 @@
+services:
+#    chatter_app.example:
+#        class: Chatter\AppBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
